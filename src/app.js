@@ -1,13 +1,15 @@
 // src/app.js
 
 import { Auth, getUser } from './auth';
-import { getUserFragments } from './api';
+import { getUserFragments, sendData } from './api';
 
 async function init() {
   // Get our UI elements
   const userSection = document.querySelector('#user');
   const loginBtn = document.querySelector('#login');
   const logoutBtn = document.querySelector('#logout');
+  const createFragment = document.querySelector('#create-fragment');
+  const fragmentText = document.querySelector('#text-input-title');
 
  
 
@@ -29,6 +31,10 @@ async function init() {
     // Disable the Logout button
     logoutBtn.disabled = true;
     return;
+  }
+
+  createFragment.onclick = () =>{
+    sendData(user, fragmentText.value);
   }
 
    // Do an authenticated request to the fragments API server and log the result
