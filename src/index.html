@@ -14,10 +14,19 @@
     <section hidden id="user">
       <h2>Hello <span class="username"></span>!</h2>
     </section>
+    
     <section id="fragment">
       <h4>Create a new Fragment</h4>
       <p>Enter the text below to create a new fragment</p>
       <input type="input" id="text-input-title" name="Fragment">
+      <br><br>
+      <label>Select the Type of Fragment:</label> 
+      <select id="Type"> 
+        <option value="text/plain">text/plain</option> 
+        <option value="text/plain; charset=utf-8"> text/plain; charset=utf-8 </option> 
+        <option value="text/markdown">text/markdown</option> 
+        <option value="text/html">text/html</option> 
+        <option value="application/json">application/json</option>
       <br><br>
       <Button id="create-fragment">Create Fragment</Button>
     </section>

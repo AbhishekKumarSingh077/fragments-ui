@@ -13,6 +13,7 @@ async function init() {
   const checkOldFragment = document.querySelector('#checkOldFragment');
   const checkOldFragmentBtn = document.querySelector('#checkOldFragmentBtn');
   const checkOldFragmentList = document.querySelector('#checkOldFragmentList');
+  const fragType = document.querySelector('#Type');
 
   checkOldFragmentBtn.onclick = () => {
     testFragments();
@@ -42,7 +43,7 @@ async function init() {
   }
 
   createFragment.onclick = () =>{
-    sendData(user, fragmentText.value);
+    sendData(user, fragmentText.value, fragType.value);
   }
 
    // Do an authenticated request to the fragments API server and log the result
@@ -61,22 +62,22 @@ async function init() {
   loginBtn.disabled = true;
 }
 
-function testFragments(); {
+function testFragments() {
   let oldFragment = "";
   let checkOldFragmentList = document.querySelector(".checkOldFragmentList");
   checkOldFragmentList.innerHTML = "";
   getUserFragments(user).then((data) => {
     if (data.length) {
       let addUpper = document.createElement("tr");
-      let Upper = [
+      let upperHeadingRow = [
         "ID",
         "Created",
         "Updated",
         "Type"
       ];
-      for (let column of Upper) {
+      for (let fragmentsColumn of upperHeadingRow) {
         let th = document.createElement("th");
-        th.append(column);
+        th.append(fragmentsColumn);
         addUpper.appendChild(th);
       }
       checkOldFragmentList.appendChild(addUpper);
@@ -95,7 +96,7 @@ function testFragments(); {
       }
     } else {
       let td = document.createElement("td");
-      td.append("No fragments were found");
+      td.append("There exist no fragments!!");
       checkOldFragmentList.append(td);
     }
   });
