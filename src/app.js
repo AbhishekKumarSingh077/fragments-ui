@@ -2,7 +2,7 @@
 
 import { Auth, getUser } from './auth';
 import { getUserFragments, sendData } from './api';
-
+var user;
 async function init() {
   // Get our UI elements
   const userSection = document.querySelector('#user');
@@ -10,8 +10,14 @@ async function init() {
   const logoutBtn = document.querySelector('#logout');
   const createFragment = document.querySelector('#create-fragment');
   const fragmentText = document.querySelector('#text-input-title');
+  const checkOldFragment = document.querySelector('#checkOldFragment');
+  const checkOldFragmentBtn = document.querySelector('#checkOldFragmentBtn');
+  const checkOldFragmentList = document.querySelector('#checkOldFragmentList');
 
- 
+  checkOldFragmentBtn.onclick = () => {
+    testFragments();
+  }
+
 
   // Wire up event handlers to deal with login and logout.
   loginBtn.onclick = () => {
@@ -26,11 +32,13 @@ async function init() {
   };
 
   // See if we're signed in (i.e., we'll have a `user` object)
-  const user = await getUser();
+  user = await getUser();
   if (!user) {
     // Disable the Logout button
     logoutBtn.disabled = true;
     return;
+  }else{
+    testFragments();
   }
 
   createFragment.onclick = () =>{
@@ -53,5 +61,47 @@ async function init() {
   loginBtn.disabled = true;
 }
 
+function testFragments(); {
+  let oldFragment = "";
+  let checkOldFragmentList = document.querySelector(".checkOldFragmentList");
+  checkOldFragmentList.innerHTML = "";
+  getUserFragments(user).then((data) => {
+    if (data.length) {
+      let addUpper = document.createElement("tr");
+      let Upper = [
+        "ID",
+        "Created",
+        "Updated",
+        "Type"
+      ];
+      for (let column of Upper) {
+        let th = document.createElement("th");
+        th.append(column);
+        addUpper.appendChild(th);
+      }
+      checkOldFragmentList.appendChild(addUpper);
+      for (let fragment of data) {
+        let tr = document.createElement("tr");
+        let id = document.createElement("td");
+        let created = document.createElement("td");
+        let updated = document.createElement("td");
+        let type = document.createElement("td");
+        id.append(fragment.id);
+        created.append(fragment.created);
+        updated.append(fragment.updated);
+        type.append(fragment.type);
+        tr.append(id, created, updated, type);
+        checkOldFragmentList.appendChild(tr);
+      }
+    } else {
+      let td = document.createElement("td");
+      td.append("No fragments were found");
+      checkOldFragmentList.append(td);
+    }
+  });
+  checkOldFragmentList.html = oldFragment;
+}
+
 // Wait for the DOM to be ready, then start the app
 addEventListener('DOMContentLoaded', init);
+
