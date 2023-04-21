@@ -93,7 +93,7 @@ async function init() {
   }
 
   // Do an authenticated request to the fragments API server and log the result
-  getUserFragments(user);
+  getUserFragments(user, 1);
 
   // Log the user info for debugging purposes
   console.log({ user });
