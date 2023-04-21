@@ -57,6 +57,19 @@
       <input type="text" id="IdUpdate" name="IdUpdate" /><br /><br />
       <label for="UpdateFragData" style="font-weight: bold;">Enter New Data:</label>
       <input type="text" id="UpdateFragData" name="UpdateFragData" /><br /><br />
+      <label>Select the Type of Fragment:</label> 
+      <select id="updateType"> 
+        <option value="text/plain">text/plain</option> 
+        <option value="text/plain; charset=utf-8"> text/plain; charset=utf-8 </option> 
+        <option value="text/markdown">text/markdown</option> 
+        <option value="text/html">text/html</option> 
+        <option value="application/json">application/json</option>
+        <option value="image/png">image/png</option>
+        <option value="image/jpeg">image/jpeg</option>
+        <option value="image/webp">image/webp</option>
+        <option value="image/gif">image/gif</option>
+      </select>
+      <br><br>
       <button id="updateDataBtn">UPDATE THE FRAGMENT DATA</button> <br />
       <span id="updateInfo" name="updateInfo" style="font-weight: bold;"></span>
       <br>

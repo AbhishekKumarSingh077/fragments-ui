@@ -27,6 +27,7 @@ async function init() {
   const putContent = document.querySelector("#UpdateFragData");
   const updateInfo = document.querySelector("#updateInfo");
   const createInfo = document.querySelector("#createInfo");
+  const updateType = document.querySelector("#updateType");
 
   checkOldFragmentBtn.onclick = () => {
     testFragments();
@@ -87,7 +88,7 @@ async function init() {
   }
 
   putFragmentBtn.onclick = async () =>{
-    putFragment(user, putID.value, fragType.options[fragType.selectedIndex].value, putContent.value);
+    putFragment(user, putID.value, updateType.options[updateType.selectedIndex].value, putContent.value);
     updateInfo.innerHTML = "Fragment with ID: " + putID.value + " has been updated";
   }
 
