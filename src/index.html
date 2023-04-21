@@ -18,8 +18,9 @@
     <section id="fragment">
       <h4>Create a new Fragment</h4>
       <p>Enter the text below to create a new fragment</p>
-      <input type="input" id="text-input-title" name="Fragment">
-      <br><br>
+      <input type="input" id="text-input-title" name="Fragment"><br><br>
+      <label for="image" id="image" name="image">Upload the Image Here:</label>
+      <input type="file" id="image" name="image"> <br><br>
       <label>Select the Type of Fragment:</label> 
       <select id="Type"> 
         <option value="text/plain">text/plain</option> 
@@ -27,9 +28,38 @@
         <option value="text/markdown">text/markdown</option> 
         <option value="text/html">text/html</option> 
         <option value="application/json">application/json</option>
+        <option value="image/png">image/png</option>
+        <option value="image/jpeg">image/jpeg</option>
+        <option value="image/webp">image/webp</option>
+        <option value="image/gif">image/gif</option>
+      </select>
       <br><br>
-      <Button id="create-fragment">Create Fragment</Button>
-    </section>
+      <Button id="create-fragment">Create Fragment</Button><br />
+      <span id="createInfo" name="createInfo" style="font-weight: bold;"></span>
+      <br><br>
+      <span style="font-weight: bolder; font-size:x-large">GET DATA BY ID</span>
+      <label for="getDataByID" style="font-weight: bold;">Get the Fragment by passing its ID below:</label>
+      <input type="text" id="getDataByID" name="getDataByID" /><br /><br />
+      <button id="getFragDataByID">GET FRAGMENT DATA</button>
+      <button id="getFragMeta">GET FRAGMENT METADATA INFO</button>
+      <br><br>
+      <span style="font-weight: bolder; font-size:x-large">The Data is below:</span>
+      <p id="frag_byID" name="frag_byID"></p>
+      <br><br>
+      <span style="font-weight: bolder; font-size:x-large">DELETE FRAGMENT</span>
+      <label for="id_delete" style="font-weight: bold;">Fill the Fragment ID to delete:</label>
+      <input type="text" id="id_delete" name="id_delete" /><br /><br />
+      <button id="deleteFragBtn">DELETE THE FRAGMENT</button> <br />
+      <span id="deleteInfo" name="deleteInfo" style="font-weight: bold;"></span>
+      <br>
+      <span style="font-weight: bolder; font-size:x-large">PUT FRAGMENT</span>
+      <label for="IdUpdate" style="font-weight: bold;">Enter the ID to update the Fragment:</label>
+      <input type="text" id="IdUpdate" name="IdUpdate" /><br /><br />
+      <label for="UpdateFragData" style="font-weight: bold;">Enter New Data:</label>
+      <input type="text" id="UpdateFragData" name="UpdateFragData" /><br /><br />
+      <button id="updateDataBtn">UPDATE THE FRAGMENT DATA</button> <br />
+      <span id="updateInfo" name="updateInfo" style="font-weight: bold;"></span>
+      <br>
     <section id="checkOldFragment">   
       <h2>View existing fragments</h2>      
       <button id="checkOldFragmentBtn">Get Fragments</button>      

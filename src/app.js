@@ -1,7 +1,7 @@
 // src/app.js
 
 import { Auth, getUser } from './auth';
-import { getUserFragments, sendData } from './api';
+import { getUserFragments, sendData, getFragmentDataById, getFragmentMetaDataById, deleteFragmentById, putFragment } from './api';
 var user;
 async function init() {
   // Get our UI elements
@@ -14,6 +14,19 @@ async function init() {
   const checkOldFragmentBtn = document.querySelector('#checkOldFragmentBtn');
   const checkOldFragmentList = document.querySelector('#checkOldFragmentList');
   const fragType = document.querySelector('#Type');
+  const uploadedImg = document.querySelector("#image");
+  const getFragDataByID = document.querySelector("#getFragDataByID");
+  const getDataByID = document.querySelector("#getDataByID");
+  const frag_content = document.querySelector("#frag_byID");
+  const getFragMeta = document.querySelector("#getFragMeta");
+  const deleteFragment = document.querySelector("#deleteFragBtn");
+  const deleteFragId = document.querySelector("#id_delete");
+  const deleteInfo = document.querySelector("#deleteInfo");
+  const putFragmentBtn = document.querySelector("#updateDataBtn");
+  const putID = document.querySelector("#IdUpdate");
+  const putContent = document.querySelector("#UpdateFragData");
+  const updateInfo = document.querySelector("#updateInfo");
+  const createInfo = document.querySelector("#createInfo");
 
   checkOldFragmentBtn.onclick = () => {
     testFragments();
@@ -43,11 +56,43 @@ async function init() {
   }
 
   createFragment.onclick = () =>{
-    sendData(user, fragmentText.value, fragType.value);
+    if(fragType.options[fragType.selectedIndex].value == "text/plain" ||
+    fragType.options[fragType.selectedIndex].value == "text/markdown" ||
+    fragType.options[fragType.selectedIndex].value == "text/html" ||
+    fragType.options[fragType.selectedIndex].value == "application/json"){
+      sendData(user, fragType.options[fragType.selectedIndex].value, fragmentText.value);
+      createInfo.innerHTML = "Fragment has been created";
+    }else{
+      sendData(user, fragType.options[fragType.selectedIndex].value, uploadedImg.files);
+      createInfo.innerHTML = "Fragment has been created";
+    }
+    //sendData(user, fragmentText.value, fragType.value);
   }
 
-   // Do an authenticated request to the fragments API server and log the result
-   getUserFragments(user);
+  getFragDataByID.onclick = async () =>{
+    var res = await getFragmentDataById(user, getDataByID.value);
+    console.log(res);
+    frag_content.innerHTML = res;
+  }
+
+  getFragMeta.onclick = async () =>{
+    var res = await getFragmentMetaDataById(user, getDataByID.value);
+    console.log(res);
+    frag_content.innerHTML = JSON.stringify(res);
+  }
+
+  deleteFragment.onclick = async () =>{
+    deleteFragmentById(user, deleteFragId.value);
+    deleteInfo.innerHTML = "Fragment with ID: " + deleteFragId.value + " has been deleted";
+  }
+
+  putFragmentBtn.onclick = async () =>{
+    putFragment(user, putID.value, fragType.options[fragType.selectedIndex].value, putContent.value);
+    updateInfo.innerHTML = "Fragment with ID: " + putID.value + " has been updated";
+  }
+
+  // Do an authenticated request to the fragments API server and log the result
+  getUserFragments(user);
 
   // Log the user info for debugging purposes
   console.log({ user });
